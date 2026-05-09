@@ -8,8 +8,8 @@ description: Installing the EDM exporter add-on, configuring Blender, and a tour
 This chapter covers obtaining the EDM exporter add-on, installing it into Blender, configuring Blender so that exports work without per-project setup, and a tour of the EDM Export panel.
 
 > **Source attribution:** Derived from Eagle Dynamics' *Blender Exporter Part 1* video and supplemented with community knowledge. Cross-referenced against the source transcript.
-
-!!! youtube "_Wf0bWwUn-A"
+> 
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/_Wf0bWwUn-A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
 
 ---
 
