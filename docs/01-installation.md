@@ -82,7 +82,7 @@ DCS's animation system expects linear interpolation between keyframes. Blender's
 
 ### 4. Render engine
 
-In **Edit > Preferences > Render** (or per-scene under **Properties > Render**), set the engine to **EEVEE**.
+In 4.6 LTS the default render enging may already be EEVEE, but check that it is, in **Edit > Preferences > Render** (or per-scene under **Properties > Render**), set the engine to **EEVEE**.
 
 EEVEE is required for several material previews to work correctly and is the only engine that supports the full set of EDM material features in viewport preview.
 
