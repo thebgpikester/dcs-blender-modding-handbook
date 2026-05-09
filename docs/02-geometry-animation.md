@@ -9,6 +9,9 @@ This chapter covers preparing geometry for export, building empty-driven animati
 
 > **Source attribution:** Derived from Eagle Dynamics' *Blender Exporter Part 2* video and supplemented with community knowledge.
 
+<iframe width="800" height="450" src="https://www.youtube.com/embed/MYGZH5sG_0M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+-
 ---
 
 ## Geometry preparation
