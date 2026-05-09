@@ -1,3 +1,8 @@
+---
+title: Installation and configuration
+description: Installing the EDM exporter add-on, configuring Blender, and a tour of the EDM Export panel.
+---
+
 # Installation and configuration
 
 This chapter covers obtaining the EDM exporter add-on, installing it into Blender, configuring Blender so that exports work without per-project setup, and a tour of the EDM Export panel.

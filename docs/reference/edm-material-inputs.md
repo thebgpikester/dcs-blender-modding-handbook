@@ -1,3 +1,8 @@
+---
+title: EDM material inputs
+description: Consolidated reference for material inputs across the default EDM material, the Glass material, and the Deck material.
+---
+
 # EDM material inputs reference
 
 Consolidated reference for material inputs across the default EDM material, the Glass material, and the Deck material.

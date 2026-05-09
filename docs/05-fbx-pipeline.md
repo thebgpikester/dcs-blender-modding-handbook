@@ -1,3 +1,8 @@
+---
+title: FBX pipeline
+description: Bridging Blender with 3ds Max for legacy EDM workflows. Planned chapter.
+---
+
 # FBX pipeline (Blender → 3ds Max → EDM)
 
 > **Status:** Planned. This chapter will document the FBX bridge between Blender and 3ds Max for cases where the EDM exporter must run via Max (e.g. for legacy assets or specific texture pipelines).
@@ -13,7 +18,7 @@
 
 ## Want to contribute?
 
-This chapter is open for contribution. If you have working knowledge of the Blender → Max → EDM pipeline, please open a [content addition issue](../.github/ISSUE_TEMPLATE/content_addition.md) or submit a draft pull request.
+This chapter is open for contribution. If you have working knowledge of the Blender → Max → EDM pipeline, please open a [content addition issue](https://github.com/thebgpikester/dcs-blender-modding-handbook/issues/new?template=content_addition.md) or submit a draft pull request.
 
 The most valuable contributions here are reverse-engineered gotchas — the things that took you weeks to figure out — rather than abstract overviews.
 

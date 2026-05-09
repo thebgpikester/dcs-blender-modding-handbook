@@ -1,3 +1,8 @@
+---
+title: Substance Painter workflow
+description: Texturing DCS assets with Substance Painter and exporting to DDS for the EDM material system. Planned chapter.
+---
+
 # Substance Painter workflow
 
 > **Status:** Planned. This chapter will document the Substance Painter texturing workflow as it integrates with the EDM exporter.
@@ -14,7 +19,7 @@
 
 ## Want to contribute?
 
-This chapter is open for contribution. If you have working knowledge of the Substance Painter → DCS workflow, please open a [content addition issue](../.github/ISSUE_TEMPLATE/content_addition.md) or submit a draft pull request.
+This chapter is open for contribution. If you have working knowledge of the Substance Painter → DCS workflow, please open a [content addition issue](https://github.com/thebgpikester/dcs-blender-modding-handbook/issues/new?template=content_addition.md) or submit a draft pull request.
 
 ---
 

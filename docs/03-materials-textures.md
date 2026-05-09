@@ -1,3 +1,8 @@
+---
+title: Materials and textures
+description: DDS texture formats, the EDM shader node system, full material input reference, two-layer decals, light maps, UV animation, deck and glass materials.
+---
+
 # Materials and textures
 
 This chapter covers texture format requirements, the EDM shader node system, the full material input/output reference, two-layer decals, light maps, UV animation, and the specialised Deck and Glass materials.

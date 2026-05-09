@@ -1,3 +1,8 @@
+---
+title: Geometry and animation
+description: Preparing geometry, building empty-driven animation hierarchies, organising LODs, animation arguments, bounding boxes, collision, connectors, and bone export.
+---
+
 # Geometry and animation
 
 This chapter covers preparing geometry for export, building empty-driven animation hierarchies, organising LODs, animating with arguments, and creating the supporting scene elements (bounding boxes, collision geometry, connectors, and bones).
@@ -126,7 +131,7 @@ Each LOD is exported as an individual `.edm` file. Collision geometry is also ex
 - **Pros:** individual LODs can be re-exported and replaced independently.
 - **Cons:** more files to manage; the `.lods` text file becomes a piece of pipeline metadata you must maintain.
 
-> **Verification needed:** the exact format of the `.lods` text file is not detailed in the source video. If you have a working example, please contribute it via [content addition issue](../.github/ISSUE_TEMPLATE/content_addition.md).
+> **Verification needed:** the exact format of the `.lods` text file is not detailed in the source video. If you have a working example, please contribute it via [content addition issue](https://github.com/thebgpikester/dcs-blender-modding-handbook/issues/new?template=content_addition.md).
 
 ---
 

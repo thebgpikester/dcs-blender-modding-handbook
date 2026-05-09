@@ -1,3 +1,8 @@
+---
+title: Lighting, damage, and additions
+description: Real lamps, fake light points, surface mode, rabbit lights, the texture and geometry damage systems, and number decals for hull numbers and tail codes.
+---
+
 # Lighting, damage, and additions
 
 This chapter covers the in-game lighting system (real lamps, fake light points, surface mode, rabbit lights), the model damage system (texture-based and geometry-based), and the number decal system used for hull numbers and tail codes.

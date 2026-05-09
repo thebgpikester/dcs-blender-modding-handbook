@@ -1,3 +1,8 @@
+---
+title: Troubleshooting
+description: Common errors at export time, runtime, and across the FBX boundary, with their resolutions.
+---
+
 # Troubleshooting
 
 > **Status:** Planned. This chapter will collect common errors and their resolutions, organised by symptom.
@@ -35,7 +40,7 @@
 
 If you've solved a tricky DCS Blender exporter problem, please add it here — the goal is to make this the first hit when someone searches for the error message they're seeing.
 
-Open a [content addition issue](../.github/ISSUE_TEMPLATE/content_addition.md) describing:
+Open a [content addition issue](https://github.com/thebgpikester/dcs-blender-modding-handbook/issues/new?template=content_addition.md) describing:
 
 1. The exact error message or symptom
 2. The conditions under which it appears

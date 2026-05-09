@@ -1,3 +1,8 @@
+---
+title: Object types
+description: Complete reference for every Object Type the EDM panel can assign to an object.
+---
+
 # Object types
 
 Every object in the EDM exporter has an **Object Type** set via the EDM panel context menu. The type determines how the engine treats the object — geometry, helper, light, collision, decal, etc.

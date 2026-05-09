@@ -1,3 +1,8 @@
+---
+title: Hotkey reference
+description: Consolidated keyboard shortcuts for working with the EDM exporter in Blender.
+---
+
 # Hotkey reference
 
 Consolidated keyboard shortcuts for working with the EDM exporter in Blender. Hotkeys with no specific exporter context (general Blender shortcuts) are noted as such.
@@ -11,7 +16,7 @@ Consolidated keyboard shortcuts for working with the EDM exporter in Blender. Ho
 | Hotkey | Action | Context | Notes |
 |---|---|---|---|
 | `N` | Toggle sidebar | 3D Viewport, Shader Editor | Reveals the EDM Export tab and other panel groups |
-| `C` | Create new view layer | Outliner | Used for creating Export and LOD layers ([Geometry & Animation](../02-geometry-animation.md#layer-organisation)) |
+| `C` | Create new view layer | Outliner | Used for creating Export and LOD layers ([Installation](../01-installation.md#layer-organisation)) |
 | `Shift + S` | Snap menu (3D cursor) | 3D Viewport | Used for placing the 3D cursor before setting object origins |
 
 ## Object and transform

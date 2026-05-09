@@ -1,3 +1,8 @@
+---
+title: Naming conventions
+description: Names the EDM exporter recognises by exact match, parsed conventions, and house conventions for materials, textures, and objects.
+---
+
 # Naming conventions
 
 Names that the EDM exporter recognises by exact string matching, plus the conventions for material and object names that the exporter expects but does not enforce.

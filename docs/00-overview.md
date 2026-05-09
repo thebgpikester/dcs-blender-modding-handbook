@@ -1,3 +1,8 @@
+---
+title: Overview and toolchain
+description: What the EDM exporter is, what this handbook covers, and the typical DCS modelling toolchain.
+---
+
 # Overview and toolchain
 
 This handbook covers the production pipeline for creating 3D models, animations, and textures for **Digital Combat Simulator** (DCS World) using **Blender** as the primary modelling tool and the **EDM exporter** as the bridge to the DCS engine.
@@ -59,4 +64,4 @@ If you are working through this handbook for the first time, read in numerical o
 
 ## Feedback
 
-If anything in this handbook is wrong, unclear, or out of date, please open an issue or a pull request. See [CONTRIBUTING.md](../CONTRIBUTING.md).
+If anything in this handbook is wrong, unclear, or out of date, please open an issue or a pull request. See [Contributing](contributing.md).
