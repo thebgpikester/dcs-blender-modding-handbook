@@ -8,7 +8,7 @@ description: Real lamps, fake light points, surface mode, rabbit lights, the tex
 This chapter covers the in-game lighting system (real lamps, fake light points, surface mode, rabbit lights), the model damage system (texture-based and geometry-based), and the number decal system used for hull numbers and tail codes.
 
 > **Source attribution:** Derived from Eagle Dynamics' *Blender Exporter Part 4* video and supplemented with community knowledge.
-
+<iframe width="800" height="450" src="https://www.youtube.com/embed/pXWVfrYSvak" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ---
 
 ## Lighting
