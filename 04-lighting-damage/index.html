@@ -1,0 +1,1868 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Real lamps, fake light points, surface mode, rabbit lights, the texture and geometry damage systems, and number decals for hull numbers and tail codes.">
+      
+      
+        <meta name="author" content="thebgpikester">
+      
+      
+        <link rel="canonical" href="https://thebgpikester.github.io/dcs-blender-modding-handbook/04-lighting-damage/">
+      
+      
+        <link rel="prev" href="../03-materials-textures/">
+      
+      
+        <link rel="next" href="../05-fbx-pipeline/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Lighting, damage, and additions - DCS Modding Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lighting-damage-and-additions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="DCS Modding Handbook" class="md-header__button md-logo" aria-label="DCS Modding Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DCS Modding Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lighting, damage, and additions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/thebgpikester/dcs-blender-modding-handbook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thebgpikester/dcs-blender-modding-handbook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../00-overview/" class="md-tabs__link">
+          
+  
+    
+  
+  Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../reference/hotkey-reference/" class="md-tabs__link">
+          
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        
+  
+    
+  
+  Contributing
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="DCS Modding Handbook" class="md-nav__button md-logo" aria-label="DCS Modding Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DCS Modding Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/thebgpikester/dcs-blender-modding-handbook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    thebgpikester/dcs-blender-modding-handbook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-geometry-animation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Geometry & Animation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-materials-textures/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Materials & Textures
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Lighting & Damage
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Lighting & Damage
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lighting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lighting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lamps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lamps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lamps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-lamp-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported lamp types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exported-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exported properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animating-lamp-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Animating lamp properties
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fakes-light-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fakes (light points)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fakes (light points)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-fakes-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard fakes — setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fake-type-material-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fake type — material group
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Material properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spot-direction-empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spot direction empty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#surface-mode-alternative-spot-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surface mode (alternative spot method)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rabbit-lights-sequenced-lights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rabbit lights (sequenced lights)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rabbit lights (sequenced lights)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-damage-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model damage system
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model damage system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#texture-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Texture damage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Texture damage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-dds-format-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important: DDS format change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Material setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-the-damage-argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assigning the damage argument
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometry damage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Geometry damage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-seam-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The seam problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-1-custom-split-normals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Custom Split Normals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-data-transfer-modifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: Data Transfer modifier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numbers-hull-numbers-and-tail-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numbers (hull numbers and tail codes)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Numbers (hull numbers and tail codes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-vertical-09-empty-atlas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worked example: vertical 0–9 + empty atlas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-fbx-pipeline/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FBX Pipeline
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-substance-painter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Substance Painter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/hotkey-reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hotkeys
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/naming-conventions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Naming Conventions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/object-types/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Object Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/edm-material-inputs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDM Material Inputs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lighting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lighting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lighting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lamps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lamps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lamps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supported-lamp-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported lamp types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exported-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exported properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animating-lamp-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Animating lamp properties
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fakes-light-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fakes (light points)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fakes (light points)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-fakes-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard fakes — setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fake-type-material-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fake type — material group
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Material properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spot-direction-empty" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spot direction empty
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#surface-mode-alternative-spot-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      Surface mode (alternative spot method)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rabbit-lights-sequenced-lights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rabbit lights (sequenced lights)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rabbit lights (sequenced lights)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-damage-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model damage system
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model damage system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#texture-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Texture damage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Texture damage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-dds-format-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important: DDS format change
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Material setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-the-damage-argument" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assigning the damage argument
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geometry-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Geometry damage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Geometry damage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-seam-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      The seam problem
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-1-custom-split-normals" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 1: Custom Split Normals
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#method-2-data-transfer-modifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      Method 2: Data Transfer modifier
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numbers-hull-numbers-and-tail-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numbers (hull numbers and tail codes)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Numbers (hull numbers and tail codes)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worked-example-vertical-09-empty-atlas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worked example: vertical 0–9 + empty atlas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resources
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/thebgpikester/dcs-blender-modding-handbook/edit/main/docs/04-lighting-damage.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/thebgpikester/dcs-blender-modding-handbook/raw/main/docs/04-lighting-damage.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="lighting-damage-and-additions">Lighting, damage, and additions<a class="headerlink" href="#lighting-damage-and-additions" title="Permanent link">&para;</a></h1>
+<p>This chapter covers the in-game lighting system (real lamps, fake light points, surface mode, rabbit lights), the model damage system (texture-based and geometry-based), and the number decal system used for hull numbers and tail codes.</p>
+<blockquote>
+<p><strong>Source attribution:</strong> Derived from Eagle Dynamics' <em>Blender Exporter Part 4</em> video and supplemented with community knowledge.</p>
+</blockquote>
+<hr />
+<h2 id="lighting">Lighting<a class="headerlink" href="#lighting" title="Permanent link">&para;</a></h2>
+<p>The exporter supports three distinct lighting types:</p>
+<ul>
+<li><strong>Lamps</strong> — actual light sources that illuminate other geometry.</li>
+<li><strong>Fakes (light points)</strong> — image-based glowing points or plates.</li>
+<li><strong>Emission</strong> — material-based glow (covered in <a href="../03-materials-textures/">Materials &amp; Textures</a>).</li>
+</ul>
+<h3 id="lamps">Lamps<a class="headerlink" href="#lamps" title="Permanent link">&para;</a></h3>
+<p>Lamp objects, like connectors, are exported only for <strong>LOD 0</strong>. The exporter transfers lamp characteristics as accurately as possible, but rendering differences mean final tuning must be done in Model Viewer.</p>
+<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Render engine:</strong> EEVEE. Cycles lacks some required settings.</li>
+<li><strong>Viewport:</strong> Material Preview mode with Scene Lights enabled, or Rendered mode.</li>
+<li><strong>HDRI:</strong> in Material Preview mode, the HDRI environment map is enabled automatically and can be dimmed or disabled. In Rendered mode, set the HDRI manually.</li>
+</ul>
+<blockquote>
+<p>See <a href="https://docs.blender.org/manual/en/latest/render/lights/index.html">Blender's lighting documentation</a> for general lamp setup.</p>
+</blockquote>
+<h4 id="supported-lamp-types">Supported lamp types<a class="headerlink" href="#supported-lamp-types" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Point</strong> (omni)</li>
+<li><strong>Spot</strong></li>
+</ul>
+<h4 id="exported-properties">Exported properties<a class="headerlink" href="#exported-properties" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Applies to</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Color</td>
+<td>Point, Spot</td>
+<td>Lamp colour</td>
+</tr>
+<tr>
+<td>Power</td>
+<td>Point, Spot</td>
+<td>Lamp intensity</td>
+</tr>
+<tr>
+<td>Specular</td>
+<td>Point, Spot</td>
+<td>Ability to cast highlights</td>
+</tr>
+<tr>
+<td>Custom Distance</td>
+<td>Point, Spot</td>
+<td>Working range. If unchecked, default is 20 m</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Spot only</td>
+<td>Angle of the light cone</td>
+</tr>
+<tr>
+<td>Blend</td>
+<td>Spot only</td>
+<td>Softness of the light edge. 0 = hard, 1 = soft. Defines the inner angle</td>
+</tr>
+</tbody>
+</table>
+<h4 id="animating-lamp-properties">Animating lamp properties<a class="headerlink" href="#animating-lamp-properties" title="Permanent link">&para;</a></h4>
+<p>Animation arguments for lamp characteristics are set in the EDM Export panel. Create the animation first, then assign its argument in the EDM panel.</p>
+<h3 id="fakes-light-points">Fakes (light points)<a class="headerlink" href="#fakes-light-points" title="Permanent link">&para;</a></h3>
+<p>Fakes are image-based light points. Two creation modes:</p>
+<ul>
+<li><strong>Standard:</strong> vertices of geometry become light points.</li>
+<li><strong>Surface mode:</strong> quad plates become light points; the face normal defines the direction. Enabled via the Surface Mode checkbox.</li>
+</ul>
+<h4 id="standard-fakes-setup">Standard fakes — setup<a class="headerlink" href="#standard-fakes-setup" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Create geometry whose vertices will become the fakes.</li>
+<li>Set the Object Type to <code>fake_light</code>.</li>
+<li>Define the texture atlas region using <code>text_coord_LB</code> (left-bottom) and <code>text_coord_RT</code> (right-top). This sets the UV layout.</li>
+<li><strong>Size</strong> sets the size of the light plate.</li>
+<li><strong>Object Luminance</strong> sets the brightness of the glow.</li>
+<li>To animate, specify the argument name in the action's name (see <a href="../02-geometry-animation/#animation-arguments">Geometry &amp; Animation — Animation arguments</a>).</li>
+</ol>
+<h4 id="fake-type-material-group">Fake type — material group<a class="headerlink" href="#fake-type-material-group" title="Permanent link">&para;</a></h4>
+<p>Define whether the fake is directional or non-directional by assigning a material group:</p>
+<ul>
+<li><code>EDM_fake_omni_material</code> — non-directional point.</li>
+<li><code>EDM_fake_spot_material</code> — directional spot.</li>
+</ul>
+<p>Connect the texture to the emissive channel of the selected group.</p>
+<h4 id="material-properties">Material properties<a class="headerlink" href="#material-properties" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Luminance</strong></td>
+<td>Brightness or glow strength. Set on the material to apply to all objects using it, or on the object to affect only that instance</td>
+</tr>
+<tr>
+<td><strong>Min Size Pixels</strong></td>
+<td>Minimum on-screen fake size in pixels when far from the camera</td>
+</tr>
+<tr>
+<td><strong>Max Distance</strong></td>
+<td>Distance after which the light disappears</td>
+</tr>
+<tr>
+<td><strong>Shift to Camera</strong></td>
+<td>Shifts the light plate toward the camera to avoid visible intersections with geometry</td>
+</tr>
+<tr>
+<td><strong>Outer Angle</strong> (spot)</td>
+<td>Outer limit of directional light, beyond which the light does not appear</td>
+</tr>
+<tr>
+<td><strong>Inner Angle</strong> (spot)</td>
+<td>Angle of maximum brightness</td>
+</tr>
+</tbody>
+</table>
+<h4 id="spot-direction-empty">Spot direction empty<a class="headerlink" href="#spot-direction-empty" title="Permanent link">&para;</a></h4>
+<p>For <code>fake_spot</code>, direction is defined by an Empty parented to the fake's geometry:</p>
+<ul>
+<li>Use the <strong>Arrows</strong> empty type — the direction is easier to see.</li>
+<li>Name the empty exactly <code>light_dir</code>. The empty's X-vector defines the lamp direction.</li>
+</ul>
+<h4 id="surface-mode-alternative-spot-method">Surface mode (alternative spot method)<a class="headerlink" href="#surface-mode-alternative-spot-method" title="Permanent link">&para;</a></h4>
+<p>Surface mode creates fake spots from square planes. The plane's centre is the fake centre; the face normal is the direction. Only quads are used.</p>
+<ol>
+<li>Create the plane geometry. Plates may be separate or merged into one object.</li>
+<li>Enable the <strong>Surface Mode</strong> checkbox.</li>
+<li>Create the material as for a regular spot fake.</li>
+<li>Set texture coordinates by unwrapping the UV map. <strong>Size is determined by the plate's actual dimensions.</strong></li>
+<li>Adjust plate size using the <strong>Individual Origins</strong> pivot point for convenience.</li>
+<li>To set a backside texture: create a new UV map named <code>back</code> and adjust its UV coordinates.</li>
+</ol>
+<p>Surface mode works well for complex setups with many lamps facing different directions.</p>
+<h3 id="rabbit-lights-sequenced-lights">Rabbit lights (sequenced lights)<a class="headerlink" href="#rabbit-lights-sequenced-lights" title="Permanent link">&para;</a></h3>
+<p>Rabbit lights are running lights along a sequence of lamps — used for runway lights and aircraft carrier deck lights. Works with both omni and spot fakes.</p>
+<h4 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Create a brightness animation common to all lights by animating <strong>Object Luminance</strong>. Example: three keyframes — 1 → 5 → 1 — creating a flash.</li>
+<li>Set the argument number in the action name.</li>
+<li>Create a vertex group named <code>delay</code> and assign all vertices weight 0.</li>
+<li>Adjust each vertex's weight individually. Range <strong>0–1</strong>, where 1 is the full duration of the animation.</li>
+<li>Vertices with delay 0 fire at the start; vertices with 0.5 fire halfway through.</li>
+</ol>
+<blockquote>
+<p><strong>Tip:</strong> adjust and verify vertex weights via the <strong>Item</strong> menu in the N-panel.</p>
+<p>See <a href="https://docs.blender.org/manual/en/latest/modeling/meshes/properties/vertex_groups/index.html">Blender's vertex groups documentation</a>.</p>
+</blockquote>
+<hr />
+<h2 id="model-damage-system">Model damage system<a class="headerlink" href="#model-damage-system" title="Permanent link">&para;</a></h2>
+<p>Two damage types are supported, and they may be combined:</p>
+<ul>
+<li><strong>Texture damage:</strong> damage gradient applied through textures.</li>
+<li><strong>Geometry damage:</strong> entire geometry replaced with a damaged version via visibility animation.</li>
+</ul>
+<h3 id="texture-damage">Texture damage<a class="headerlink" href="#texture-damage" title="Permanent link">&para;</a></h3>
+<p>Texture damage uses three special textures connected to the object's material:</p>
+<table>
+<thead>
+<tr>
+<th>Texture</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DM_base</code></td>
+<td>Albedo of the damage pattern</td>
+</tr>
+<tr>
+<td><code>DM_normal</code></td>
+<td>Normal map of the damage</td>
+</tr>
+<tr>
+<td><code>DM_map</code></td>
+<td>Mask containing animation frames of the damage. Anything not black is visible. Anything brighter than 0.85 renders as a transparent hole</td>
+</tr>
+</tbody>
+</table>
+<h4 id="important-dds-format-change">Important: DDS format change<a class="headerlink" href="#important-dds-format-change" title="Permanent link">&para;</a></h4>
+<p><strong>Blender does not support 3D volumetric DDS textures</strong>, which were previously used to store four damage frames. The current format is <strong>BC3 DDS</strong>: frames 1–3 are stored as RGB layers, frame 4 in the alpha channel.</p>
+<h4 id="material-setup">Material setup<a class="headerlink" href="#material-setup" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Connect each damage texture to the appropriate material input.</li>
+<li>For correct preview, connect the alpha channel of <code>DM_map</code> — this contains the fourth damage layer. Preview-only; does not affect export.</li>
+<li>Use the <strong>Damage Visibility</strong> slider to check how damage appears in the viewport.</li>
+</ul>
+<h4 id="assigning-the-damage-argument">Assigning the damage argument<a class="headerlink" href="#assigning-the-damage-argument" title="Permanent link">&para;</a></h4>
+<p>Two <strong>mutually exclusive</strong> methods:</p>
+<ul>
+<li><strong>Whole-object damage:</strong> set the damage argument in the EDM panel. The entire object breaks together.</li>
+<li><strong>Partial damage (vertex groups):</strong> create vertex groups named <code>DMG_&lt;n&gt;</code> where <code>&lt;n&gt;</code> is the damage argument index. Assign the relevant geometry to each group. Multiple groups may be created — one per damage part or argument.</li>
+</ul>
+<blockquote>
+<p><strong>Caution:</strong> these methods cannot be combined on the same object. If using vertex groups, the EDM panel damage argument must not be set.</p>
+</blockquote>
+<p>The vertex-group method is convenient because the object does not need to be split into separate parts. Verify the result in Model Viewer.</p>
+<h3 id="geometry-damage">Geometry damage<a class="headerlink" href="#geometry-damage" title="Permanent link">&para;</a></h3>
+<p>Geometry damage replaces the whole geometry with a damaged version using visibility animation. Often used together with texture damage and shares the same argument — the model damages gradually via textures, then breaks completely when the geometry swap fires.</p>
+<h4 id="the-seam-problem">The seam problem<a class="headerlink" href="#the-seam-problem" title="Permanent link">&para;</a></h4>
+<p>Splitting geometry to destroy a section produces visible seams and broken shading. Two solutions:</p>
+<h4 id="method-1-custom-split-normals">Method 1: Custom Split Normals<a class="headerlink" href="#method-1-custom-split-normals" title="Permanent link">&para;</a></h4>
+<ol>
+<li>In the <strong>Object Data Properties</strong> (Geometry Data section), enable <strong>Custom Split Normal</strong> via the <strong>Add Custom Split Normals Data</strong> button. This freezes the current shading.</li>
+<li>After applying, separate the geometry: <code>Y</code> (Edge Split) then <code>P</code> (Separate).</li>
+</ol>
+<blockquote>
+<p><strong>Trade-off:</strong> to fix seams later, you must merge everything back, run <strong>Clear Custom Split Normals Data</strong>, and redo the process.</p>
+<p>See <a href="https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/normals.html">Blender's normals documentation</a>.</p>
+</blockquote>
+<h4 id="method-2-data-transfer-modifier">Method 2: Data Transfer modifier<a class="headerlink" href="#method-2-data-transfer-modifier" title="Permanent link">&para;</a></h4>
+<p>This modifier transfers data — including geometry normals — from a clean reference object.</p>
+<ol>
+<li>Create a copy of the separated elements stitched into a single seamless object. Move it to a separate working layer.</li>
+<li>On each split object, add the <strong>Data Transfer</strong> modifier.</li>
+<li>Set the clean stitched object as the source.</li>
+<li>Enable <strong>Face Corner Data</strong> and turn on <strong>Custom Normals</strong>.</li>
+<li>To copy the modifier across all split objects: select all objects with the configured object as the active (last selected), then press <code>Ctrl + L</code> → <strong>Copy Modifiers</strong>.</li>
+<li>Verify in Model Viewer — seams should be gone.</li>
+</ol>
+<blockquote>
+<p>See <a href="https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/data_transfer.html">Blender's Data Transfer modifier documentation</a>.</p>
+</blockquote>
+<hr />
+<h2 id="numbers-hull-numbers-and-tail-codes">Numbers (hull numbers and tail codes)<a class="headerlink" href="#numbers-hull-numbers-and-tail-codes" title="Permanent link">&para;</a></h2>
+<p><strong>Number Type</strong> is a tool for rendering numerals on vehicles by offsetting the UV map. It is similar to the UV map animation method (<a href="../03-materials-textures/#uv-animation">Materials &amp; Textures — UV animation</a>) but optimised for digit rendering. UV shifts only in the decal channel.</p>
+<h3 id="setup_1">Setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Duplicate the part of the hull where the number will appear. Adjust the geometry as needed.</li>
+<li>Create a UV map for the decal channel. Place the UV island over the first symbol in the texture atlas (e.g. <code>0</code>).</li>
+<li><strong>Duplicate the material.</strong> This is required because the number needs a base layer to overlay on, and the duplicated material will also retain damage if present.</li>
+<li>Add the decal containing the numbers and assign the new UV map to it.</li>
+<li>In the EDM panel, set the Object Type to <code>number_type</code>.</li>
+<li>Assign the argument that will shift the UV along the X or Y axis.</li>
+<li>Set the shift value to the position of the last symbol in the atlas.</li>
+<li>Optionally add a damage argument.</li>
+<li>Export and verify.</li>
+</ol>
+<h3 id="worked-example-vertical-09-empty-atlas">Worked example: vertical 0–9 + empty atlas<a class="headerlink" href="#worked-example-vertical-09-empty-atlas" title="Permanent link">&para;</a></h3>
+<p>For a vertical atlas of digits 0–9 plus one empty slot (11 cells total):</p>
+<p><code>Shift value = 10 / 11 = 0.909</code></p>
+<p>The argument shifts the UV from position 0 (digit <code>0</code>) to position 0.909 (the empty slot at the bottom).</p>
+<hr />
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://docs.blender.org/manual/en/latest/render/lights/index.html">Blender lighting</a></li>
+<li><a href="https://docs.blender.org/manual/en/latest/modeling/meshes/properties/vertex_groups/index.html">Blender vertex groups</a></li>
+<li><a href="https://docs.blender.org/manual/en/latest/modeling/meshes/editing/mesh/normals.html">Blender normals</a></li>
+<li><a href="https://docs.blender.org/manual/en/latest/modeling/modifiers/modify/data_transfer.html">Blender Data Transfer modifier</a></li>
+<li><a href="../reference/naming-conventions/">Naming conventions reference</a></li>
+<li><a href="../reference/object-types/">Object types reference</a></li>
+</ul>
+<hr />
+<blockquote>
+<p><em>Previous: <a href="../03-materials-textures/">Materials and textures</a> — Next: <a href="../05-fbx-pipeline/">FBX pipeline (planned)</a></em></p>
+</blockquote>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 9, 2026</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../03-materials-textures/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Materials &amp; Textures">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Materials & Textures
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../05-fbx-pipeline/" class="md-footer__link md-footer__link--next" aria-label="Next: FBX Pipeline">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                FBX Pipeline
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 DCS Modding Handbook contributors. Licensed under MIT.<br>
+Independent community project. Not affiliated with Eagle Dynamics.
+
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/thebgpikester/dcs-blender-modding-handbook" target="_blank" rel="noopener" title="GitHub repository" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.tracking", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "content.tabs.link", "content.action.edit", "content.action.view", "content.tooltips", "toc.follow"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
