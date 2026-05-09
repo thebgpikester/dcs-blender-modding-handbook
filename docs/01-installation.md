@@ -9,7 +9,7 @@ This chapter covers obtaining the EDM exporter add-on, installing it into Blende
 
 > **Source attribution:** Derived from Eagle Dynamics' *Blender Exporter Part 1* video and supplemented with community knowledge. Cross-referenced against the source transcript.
 
-<iframe width="100%" height="600" src="https://www.youtube.com/embed/_Wf0bWwUn-A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+!!! youtube "_Wf0bWwUn-A"
 
 ---
 
