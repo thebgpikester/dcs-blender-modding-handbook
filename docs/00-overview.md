@@ -6,7 +6,7 @@ description: What the EDM exporter is, what this handbook covers, and the typica
 # Overview and toolchain
 
 This handbook covers the production pipeline for creating 3D models, animations, and textures for **Digital Combat Simulator** (DCS World) using **Blender** as the primary modelling tool and the **EDM exporter** as the bridge to the DCS engine.
-
+![Blender 4.6](images/i58.png)
 ## What is the EDM exporter
 
 `IO_Scene_EDM` is the official Eagle Dynamics Blender add-on that exports scenes to `.edm`, the model format used by DCS World. It replaces the older 3ds Max-only pipeline and is the recommended path for new modders.
