@@ -116,6 +116,8 @@ markdown_extensions:
   # Python Markdown
   - abbr                             # Abbreviation tooltips
   - admonition                       # !!! note "..." boxes
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.html
   - attr_list                        # Add attributes to elements
   - def_list                         # Definition lists
   - footnotes
