@@ -9,6 +9,8 @@ This chapter covers texture format requirements, the EDM shader node system, the
 
 > **Source attribution:** Derived from Eagle Dynamics' *Blender Exporter Part 3* video and supplemented with community knowledge.
 
+<iframe width="800" height="450" src="https://www.youtube.com/embed/Z76MHTwydlo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ---
 
 ## Texture format requirements
